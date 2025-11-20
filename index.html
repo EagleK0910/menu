@@ -7,99 +7,112 @@
 <style>
   body {
     font-family: Arial, sans-serif;
-    background: #f7f7f7;
+    background: #f5f5f5;
     text-align: center;
     padding: 20px;
   }
   #container {
     max-width: 500px;
+    background: #fff;
     margin: auto;
-    background: white;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
   .option-group {
     text-align: left;
-    display: inline-block;
     margin-bottom: 15px;
   }
   button {
-    width: 80%;
+    width: 90%;
     padding: 15px;
-    margin: 10px;
     font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #45a049;
   }
   img {
     width: 100%;
-    border-radius: 10px;
     margin-top: 10px;
+    border-radius: 10px;
   }
 </style>
 </head>
 
 <body>
-<div id="container">
-  <h2>餐廳隨機抽籤</h2>
 
-  <!-- 新增的多選分類 -->
+<div id="container">
+  <h2>🍽️ 餐廳隨機抽籤</h2>
+
+  <!-- 多選分類 -->
   <div class="option-group">
-    <label><input type="checkbox" id="chk_self" checked> 自取</label><br>
+    <label><input type="checkbox" id="chk_pickup" checked> 自取</label><br>
     <label><input type="checkbox" id="chk_delivery" checked> 外送</label>
   </div>
 
   <button onclick="drawRestaurant()">抽 餐 廳！</button>
 
-  <div id="result"></div>
+  <div id="result" style="margin-top:20px;"></div>
 </div>
 
 <script>
-let restaurants = [];
+let restaurants = {};
 
-// 載入 JSON
+// 載入 JSON（自取 / 外送 分類）
 fetch("restaurants.json")
   .then(res => res.json())
   .then(data => restaurants = data);
 
-// 抽籤邏輯
+// 抽籤主程式
 function drawRestaurant() {
-  const wantSelf = document.getElementById("chk_self").checked;
+  const wantPickup = document.getElementById("chk_pickup").checked;
   const wantDelivery = document.getElementById("chk_delivery").checked;
 
-  // 若全未選
-  if (!wantSelf && !wantDelivery) {
-    document.getElementById("result").innerHTML = "<p>❗請至少選擇一種取餐方式</p>";
-    return;
+  // 餐廳池
+  let pool = [];
+
+  if (wantPickup && restaurants["自取"]) {
+    pool = pool.concat(restaurants["自取"]);
+  }
+  if (wantDelivery && restaurants["外送"]) {
+    pool = pool.concat(restaurants["外送"]);
   }
 
-  // 篩選
-  const filtered = restaurants.filter(r =>
-    (wantSelf && r.type === "自取") ||
-    (wantDelivery && r.type === "外送")
-  );
-
-  if (filtered.length === 0) {
-    document.getElementById("result").innerHTML = "<p>沒有符合條件的餐廳</p>";
+  if (pool.length === 0) {
+    document.getElementById("result").innerHTML = "<p>⚠️ 請至少選擇一種取餐方式！</p>";
     return;
   }
 
   // 隨機抽取
-  const r = filtered[Math.floor(Math.random() * filtered.length)];
+  const r = pool[Math.floor(Math.random() * pool.length)];
 
-  // Google Map 連結
+  // Google Map 導航
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.address)}`;
 
   // 顯示結果
   document.getElementById("result").innerHTML = `
     <h3>${r.name}</h3>
-    <p><strong>取餐方式：</strong>${r.type}</p>
-    <p><strong>地址：</strong>
+    <p><strong>取餐方式：</strong>${getType(r)}</p>
+    <p><strong>📍 地址：</strong>
       <a href="${mapLink}" target="_blank">${r.address}</a>
     </p>
-    <p><strong>電話：</strong><a href="tel:${r.phone}">${r.phone}</a></p>
-    <p><strong>菜單：</strong></p>
+    <p><strong>📞 電話：</strong>
+      <a href="tel:${r.phone}">${r.phone}</a>
+    </p>
     <img src="menu/${r.menuImage}" alt="menu">
   `;
+}
+
+// 判斷餐廳屬於哪個分類（自取 / 外送）
+function getType(item) {
+  if (restaurants["外送"] && restaurants["外送"].includes(item)) return "外送";
+  if (restaurants["自取"] && restaurants["自取"].includes(item)) return "自取";
+  return "未知";
 }
 </script>
 
