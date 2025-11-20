@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>抽籤餐廳系統</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    text-align: center;
+    padding: 20px;
+  }
+  #container {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+  }
+  .option-group {
+    text-align: left;
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+  button {
+    width: 80%;
+    padding: 15px;
+    margin: 10px;
+    font-size: 18px;
+  }
+  img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+</style>
+</head>
+
+<body>
+<div id="container">
+  <h2>餐廳隨機抽籤</h2>
+
+  <!-- 新增的多選分類 -->
+  <div class="option-group">
+    <label><input type="checkbox" id="chk_self" checked> 自取</label><br>
+    <label><input type="checkbox" id="chk_delivery" checked> 外送</label>
+  </div>
+
+  <button onclick="drawRestaurant()">抽 餐 廳！</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+let restaurants = [];
+
+// 載入 JSON
+fetch("restaurants.json")
+  .then(res => res.json())
+  .then(data => restaurants = data);
+
+// 抽籤邏輯
+function drawRestaurant() {
+  const wantSelf = document.getElementById("chk_self").checked;
+  const wantDelivery = document.getElementById("chk_delivery").checked;
+
+  // 若全未選
+  if (!wantSelf && !wantDelivery) {
+    document.getElementById("result").innerHTML = "<p>❗請至少選擇一種取餐方式</p>";
+    return;
+  }
+
+  // 篩選
+  const filtered = restaurants.filter(r =>
+    (wantSelf && r.type === "自取") ||
+    (wantDelivery && r.type === "外送")
+  );
+
+  if (filtered.length === 0) {
+    document.getElementById("result").innerHTML = "<p>沒有符合條件的餐廳</p>";
+    return;
+  }
+
+  // 隨機抽取
+  const r = filtered[Math.floor(Math.random() * filtered.length)];
+
+  // Google Map 連結
+  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.address)}`;
+
+  // 顯示結果
+  document.getElementById("result").innerHTML = `
+    <h3>${r.name}</h3>
+    <p><strong>取餐方式：</strong>${r.type}</p>
+    <p><strong>地址：</strong>
+      <a href="${mapLink}" target="_blank">${r.address}</a>
+    </p>
+    <p><strong>電話：</strong><a href="tel:${r.phone}">${r.phone}</a></p>
+    <p><strong>菜單：</strong></p>
+    <img src="menu/${r.menuImage}" alt="menu">
+  `;
+}
+</script>
+
+</body>
+</html>
