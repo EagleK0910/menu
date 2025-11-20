@@ -1,42 +1,30 @@
-[
-  {
-    "name": "ㄚ爸滷肉飯",
-    "type": "自取",
-    "pay": "現金",
-    "address": "台北市大安區某路 100 號",
-    "phone": "02-2233-4455",
-    "menuImage": "sanma.jpg"
-  },
-  {
-    "name": "好窩",
-    "type": "自取",
-    "pay": "現金 & Line pay",
-    "address": "台北市信義區某路 20 號",
-    "phone": "02-8899-7788",
-    "menuImage": "mcdonald.jpg"
-  },
-  {
-    "name": "八方雲集",
-    "type": "自取",
-    "pay": "現金 & Line pay",
-    "address": "台北市大安區某路 300 號",
-    "phone": "02-1234-5678",
-    "menuImage": "bafang.jpg"
-  },
-  {
-    "name": "悟饕",
-    "type": "自取",
-    "pay": "現金",
-    "address": "高雄市楠梓區藍田路849號",
-    "phone": "07-3647785",
-    "menuImage": "bafang.jpg"
-  },
-  {
-    "name": "八方雲集",
-    "type": "自取",
-    "pay": "現金 & Line pay",
-    "address": "台北市大安區某路 300 號",
-    "phone": "02-1234-5678",
-    "menuImage": "bafang.jpg"
-  }
-]
+{
+  "外送": [
+    {
+      "name": "麥當勞",
+      "address": "台北市信義區某路 20 號",
+      "phone": "02-8899-7788",
+      "menuImage": "mcdonald.jpg"
+    },
+    {
+      "name": "Uber Eats 熱炒店",
+      "address": "台北市大安區 88 號",
+      "phone": "02-2299-3344",
+      "menuImage": "hotsaute.jpg"
+    }
+  ],
+  "自取": [
+    {
+      "name": "八方雲集",
+      "address": "台北市大安區某路 300 號",
+      "phone": "02-1234-5678",
+      "menuImage": "bafang.jpg"
+    },
+    {
+      "name": "三媽臭臭鍋",
+      "address": "台北市大安區某路 100 號",
+      "phone": "02-2233-4455",
+      "menuImage": "sanma.jpg"
+    }
+  ]
+}
