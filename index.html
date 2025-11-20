@@ -63,7 +63,7 @@
 <script>
 let restaurants = {};
 
-// 載入 JSON（自取 / 外送 分類）
+// 載入 JSON（自取／外送 分類）
 fetch("restaurants.json")
   .then(res => res.json())
   .then(data => restaurants = data);
@@ -73,14 +73,14 @@ function drawRestaurant() {
   const wantPickup = document.getElementById("chk_pickup").checked;
   const wantDelivery = document.getElementById("chk_delivery").checked;
 
-  // 餐廳池
+  // 餐廳候選池（附上分類標記）
   let pool = [];
 
   if (wantPickup && restaurants["自取"]) {
-    pool = pool.concat(restaurants["自取"]);
+    restaurants["自取"].forEach(r => pool.push({ ...r, type: "自取" }));
   }
   if (wantDelivery && restaurants["外送"]) {
-    pool = pool.concat(restaurants["外送"]);
+    restaurants["外送"].forEach(r => pool.push({ ...r, type: "外送" }));
   }
 
   if (pool.length === 0) {
@@ -97,7 +97,7 @@ function drawRestaurant() {
   // 顯示結果
   document.getElementById("result").innerHTML = `
     <h3>${r.name}</h3>
-    <p><strong>取餐方式：</strong>${getType(r)}</p>
+    <p><strong>取餐方式：</strong>${r.type}</p>
     <p><strong>📍 地址：</strong>
       <a href="${mapLink}" target="_blank">${r.address}</a>
     </p>
@@ -106,13 +106,6 @@ function drawRestaurant() {
     </p>
     <img src="menu/${r.menuImage}" alt="menu">
   `;
-}
-
-// 判斷餐廳屬於哪個分類（自取 / 外送）
-function getType(item) {
-  if (restaurants["外送"] && restaurants["外送"].includes(item)) return "外送";
-  if (restaurants["自取"] && restaurants["自取"].includes(item)) return "自取";
-  return "未知";
 }
 </script>
 
