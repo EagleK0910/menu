@@ -1,14 +1,14 @@
 [
   {
-    "name": "三媽臭臭鍋",
+    "name": "ㄚ爸滷肉飯",
     "type": "自取",
     "address": "台北市大安區某路 100 號",
     "phone": "02-2233-4455",
     "menuImage": "sanma.jpg"
   },
   {
-    "name": "麥當勞",
-    "type": "外送",
+    "name": "好窩",
+    "type": "自取",
     "address": "台北市信義區某路 20 號",
     "phone": "02-8899-7788",
     "menuImage": "mcdonald.jpg"
