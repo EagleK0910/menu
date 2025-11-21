@@ -36,9 +36,35 @@
   button:hover {
     background: #45a049;
   }
+
+  .title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .subtitle {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  .info {
+    font-size: 18px;
+    margin: 6px 0;
+  }
+
+  @keyframes blink {
+    0% { opacity: 0.2; }
+    50% { opacity: 1; }
+    100% { opacity: 0.2; }
+  }
+  .loading {
+    font-size: 26px;
+    animation: blink 0.7s infinite;
+  }
+
   img {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 15px;
     border-radius: 10px;
   }
 </style>
@@ -47,9 +73,8 @@
 <body>
 
 <div id="container">
-  <h2>🍽️ 餐廳隨機抽籤2</h2>
+  <h2>🍽️ 餐廳隨機抽籤</h2>
 
-  <!-- 多選分類 -->
   <div class="option-group">
     <label><input type="checkbox" id="chk_pickup" checked> 自取</label><br>
     <label><input type="checkbox" id="chk_delivery" checked> 外送</label>
@@ -62,18 +87,18 @@
 
 <script>
 let restaurants = {};
+let usedList = []; // 已抽過的餐廳
 
-// 載入 JSON（自取／外送 分類）
+// 載入 JSON 資料
 fetch("restaurants.json")
   .then(res => res.json())
   .then(data => restaurants = data);
 
-// 抽籤主程式
+// 主程式
 function drawRestaurant() {
   const wantPickup = document.getElementById("chk_pickup").checked;
   const wantDelivery = document.getElementById("chk_delivery").checked;
 
-  // 餐廳候選池（附上分類標記）
   let pool = [];
 
   if (wantPickup && restaurants["自取"]) {
@@ -84,28 +109,71 @@ function drawRestaurant() {
   }
 
   if (pool.length === 0) {
-    document.getElementById("result").innerHTML = "<p>⚠️ 請至少選擇一種取餐方式！</p>";
+    document.getElementById("result").innerHTML =
+      "<p>⚠️ 請至少選擇一種取餐方式！</p>";
     return;
   }
 
-  // 隨機抽取
-  const r = pool[Math.floor(Math.random() * pool.length)];
+  // 避免抽到重複餐廳
+  let available = pool.filter(r => !usedList.includes(r.name));
+  if (available.length === 0) {
+    usedList = [];    // 全部抽過 → 自動重置
+    available = pool; // 重新開始
+  }
 
-  // Google Map 導航
-  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.address)}`;
+  // 抽籤動畫
+  document.getElementById("result").innerHTML =
+    `<div class="loading">抽籤中...</div>`;
 
-  // 顯示結果
-  document.getElementById("result").innerHTML = `
-    <h3>${r.name}</h3>
-    <p><strong>取餐方式：</strong>${r.type}</p>
-    <p><strong>📍 地址：</strong>
-      <a href="${mapLink}" target="_blank">${r.address}</a>
-    </p>
-    <p><strong>📞 電話：</strong>
-      <a href="tel:${r.phone}">${r.phone}</a>
-    </p>
-    <img src="menu/${r.menuImage}" alt="menu">
-  `;
+  setTimeout(() => {
+    const r = available[Math.floor(Math.random() * available.length)];
+    usedList.push(r.name);
+
+    let html = `
+      <div class="title">${r.name}</div>
+      <div class="subtitle">${r.type}</div>
+    `;
+
+    if (r.phone && r.phone !== "N") {
+      html += `
+        <div class="info">
+          <strong>電話：</strong>
+          <a href="tel:${r.phone}" style="color:#007BFF; text-decoration:none;">
+            ${r.phone}
+          </a>
+        </div>
+      `;
+    }
+
+    if (r.type === "外送") {
+      html += `
+        <div class="info"><strong>外送方式：</strong>${r.deliveryMethod || "未提供"}</div>
+      `;
+
+      if (r.deliveryCondition && r.deliveryCondition !== "N") {
+        html += `
+          <div class="info"><strong>外送條件：</strong>${r.deliveryCondition}</div>
+        `;
+      }
+    }
+
+    if (r.type === "自取") {
+      html += `
+        <div class="info"><strong>地址：</strong>${r.address}</div>
+      `;
+    }
+
+    // 圖片（N 或 空值 = 不顯示）
+    if (r.menuImage && r.menuImage !== "N") {
+      html += `
+        <img src="menu/${r.menuImage}" 
+             alt="menu" 
+             onerror="this.style.display='none'">
+      `;
+    }
+
+    document.getElementById("result").innerHTML = html;
+  }, 500);
 }
 </script>
 
