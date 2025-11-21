@@ -1,96 +1,107 @@
 {
   "外送": [
     {
-      "name": "大丸（小時候）",
-      "address": "高雄市楠梓區德祥路182號",
-      "phone": "無",
-      "menuImage": "mcdonald.jpg"
+      "name": "大丸（小時候飯麵館）",
+      "phone": "N",
+      "deliveryMethod": "UberEats",
+      "deliveryCondition": "N",
+      "menuImage": ""
     },
     {
       "name": "皇后炒飯",
-      "address": "台北市大安區 88 號",
-      "phone": "02-2299-3344",
-      "menuImage": "hotsaute.jpg"
+      "phone": "N",
+      "deliveryMethod": "UberEats",
+      "deliveryCondition": "N",
+      "menuImage": ""
     },
     {
-      "name": "鴨肉飯",
-      "address": "台北市大安區 88 號",
-      "phone": "02-2299-3344",
-      "menuImage": "hotsaute.jpg"
+      "name": "冠味賞鴨肉飯",
+      "phone": "N",
+      "deliveryMethod": "UberEats",
+      "deliveryCondition": "N",
+      "menuImage": ""
     },
     {
       "name": "麥當勞",
-      "address": "台北市大安區 88 號",
-      "phone": "02-2299-3344",
-      "menuImage": "hotsaute.jpg"
+      "phone": "N",
+      "deliveryMethod": "UberEats & 歡樂送",
+      "deliveryCondition": "N",
+      "menuImage": ""
     },
     {
-      "name": "胖師傅",
-      "address": "台北市大安區 88 號",
-      "phone": "02-2299-3344",
-      "menuImage": "hotsaute.jpg"
+      "name": "胖師傅便當",
+      "phone": "N",
+      "deliveryMethod": "UberEats",
+      "deliveryCondition": "N",
+      "menuImage": ""
     },
     {
       "name": "超吉飯桶",
-      "address": "台北市大安區 88 號",
-      "phone": "02-2299-3344",
-      "menuImage": "hotsaute.jpg"
+      "phone": "N",
+      "deliveryMethod": "UberEats ",
+      "deliveryCondition": "N",
+      "menuImage": ""
     },
     {
       "name": "好食丼",
-      "address": "台北市大安區 88 號",
-      "phone": "02-2299-3344",
-      "menuImage": "hotsaute.jpg"
+      "phone": "N",
+      "deliveryMethod": "UberEats",
+      "deliveryCondition": "N",
+      "menuImage": ""
     },
     {
       "name": "小東門",
-      "address": "台北市大安區 88 號",
-      "phone": "02-2299-3344",
-      "menuImage": "hotsaute.jpg"
+      "phone": "N",
+      "deliveryMethod": "UberEats",
+      "deliveryCondition": "N",
+      "menuImage": ""
     },
     {
       "name": "后湯包",
-      "address": "台北市大安區 88 號",
-      "phone": "02-2299-3344",
-      "menuImage": "hotsaute.jpg"
+      "phone": "0905125679",
+      "deliveryMethod": "UberEats & 店內外送",
+      "deliveryCondition": "滿$150店內外送",
+      "menuImage": "1.png"
     },
     {
       "name": "每日一粥",
-      "address": "台北市大安區 88 號",
-      "phone": "02-2299-3344",
-      "menuImage": "hotsaute.jpg"
+      "phone": "0972766159",
+      "deliveryMethod": "店內外送",
+      "deliveryCondition": "滿300免運",
+      "menuImage": "2.png"
     },
+    {
+      "name": "𡘙師傅",
+      "phone": "073646222",
+      "deliveryMethod": "店內外送",
+      "deliveryCondition": "滿五個便當店內外送",
+      "menuImage": "hotsaute.jpg"
+    }
   ],
   "自取": [
     {
       "name": "ㄚ爸",
-      "address": "台北市大安區某路 300 號",
-      "phone": "02-1234-5678",
+      "address": "高雄市橋頭區甲圍路114-3號",
+      "phone": "076110400",
       "menuImage": "bafang.jpg"
     },
     {
       "name": "好窩",
-      "address": "台北市大安區某路 100 號",
-      "phone": "02-2233-4455",
-      "menuImage": "sanma.jpg"
+      "address": "高雄市楠梓區壽豐路435號",
+      "phone": "073601669",
+      "menuImage": "3.png"
     },
     {
-      "name": "太師傅",
-      "address": "台北市大安區 88 號",
-      "phone": "02-2299-3344",
+      "name": "𡘙師傅",
+      "address": "高雄市楠梓區德民路572號",
+      "phone": "073646222",
       "menuImage": "hotsaute.jpg"
     },
     {
       "name": "麥當勞",
-      "address": "台北市大安區 88 號",
-      "phone": "02-2299-3344",
-      "menuImage": "hotsaute.jpg"
-    },
-    {
-      "name": "",
-      "address": "台北市大安區 88 號",
-      "phone": "02-2299-3344",
-      "menuImage": "hotsaute.jpg"
-    },
+      "address": "\n高雄市楠梓區後昌新路111號 \n高雄市楠梓區軍校路796號",
+      "phone": "N",
+      "menuImage": ""
+    }
   ]
 }
