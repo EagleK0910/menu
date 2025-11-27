@@ -8,6 +8,13 @@
       "menuImage": ""
     },
     {
+      "name": "人从众牛排",
+      "phone": "N",
+      "deliveryMethod": "UberEats",
+      "deliveryCondition": "N",
+      "menuImage": ""
+    },
+    {
       "name": "皇后炒飯",
       "phone": "N",
       "deliveryMethod": "UberEats",
@@ -77,6 +84,12 @@
       "address": "高雄市橋頭區甲圍路114-3號",
       "phone": "076110400",
       "menuImage": "bafang.jpg"
+    },
+    {
+      "name": "人从众牛排",
+      "phone": "高雄市楠梓區大學二十六街107號",
+      "phone": "073651658",
+      "menuImage": ""
     },
     {
       "name": "好窩",
